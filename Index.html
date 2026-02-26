@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 
 <body class="bg-gray-100">
@@ -33,6 +32,8 @@
       </div>
     </div>
 
+    <hr class="border-slate-200 mb-6" />
+
     <!-- Section Title -->
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-semibold">Available Jobs</h2>
@@ -41,9 +42,10 @@
 
     <!-- Tabs -->
     <div class="flex gap-3 mb-6">
-      <a href="index.html" class="bg-blue-500 text-white px-4 py-2 rounded">All</a>
-      <a href="interview.html" class="bg-gray-200 px-4 py-2 rounded">Interview</a>
-      <a href="rejected.html" class="bg-gray-200 px-4 py-2 rounded">Rejected</a>
+      <button id="tab-all" onclick="switchTab('all')" class=" bg-gray-200 px-4 py-2 rounded">All</button>
+      <button id="tab-interview" onclick="switchTab('interview')"
+        class="bg-gray-200 px-4 py-2 rounded">Interview</button>
+      <button id="tab-rejected" onclick="switchTab('rejected')" class="bg-gray-200 px-4 py-2 rounded">Rejected</button>
     </div>
 
     <!-- Job Cards -->
@@ -100,62 +102,19 @@
         </div>
 
       </div>
-      <!-- Card-2 -->
-      <div class="job-card bg-white p-6 rounded-xl shadow relative border mb-5">
 
-        <!-- Delete Icon -->
-        <button class="delete-btn absolute top-4 right-4 text-gray-400 hover:text-red-500">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-
-        <!-- Company -->
-        <h3 class="text-lg font-bold text-blue-900">
-          Mobile First Corp
-        </h3>
-
-        <!-- Position -->
-        <p class="text-gray-600">
-          React Native Developer
-        </p>
-
-        <!-- Location + Type + Salary -->
-        <p class="text-sm text-gray-500 mt-1">
-          Remote • Full-time • $130,000 - $175,000
-        </p>
-
-        <!-- STATUS BADGE -->
-        <!-- Default state -->
-        <span class="status-badge inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-700">
-          NOT APPLIED
-        </span>
-
-        <!-- Description -->
-        <p class="mt-4 text-gray-700 text-sm">
-          Build cross-platform mobile applications using React Native. Work on products used by millions of users
-          worldwide.
-        </p>
-
-        <!-- Action Buttons -->
-        <div class="flex gap-3 mt-5">
-
-          <button
-            class="interview-btn border border-green-500 text-green-600 px-4 py-1.5 rounded-md text-sm hover:bg-green-50">
-            INTERVIEW
-          </button>
-
-          <button
-            class="rejected-btn border border-red-500 text-red-600 px-4 py-1.5 rounded-md text-sm hover:bg-red-50">
-            REJECTED
-          </button>
-
-        </div>
-
-      </div>
 
 
     </div>
 
   </div>
+  <!-- Empty State -->
+  <div id="empty-state" class=" hidden flex-col items-center justify-center py-20 gap-4 text-center">
+    <div class="text-7xl opacity-20">📄</div>
+    <p class="font-syne text-lg font-bold text-navy">No jobs available</p>
+    <p class="text-sm text-slate-400">Check back soon for new job opportunities</p>
+  </div>
+  <script src="index.js"></script>
 </body>
 
 </html>
