@@ -23,12 +23,12 @@
         <p class="text-3xl font-bold text-blue-600" id="stat-total">0</p>
       </div>
       <div class="bg-white p-6 rounded-xl shadow">
-        <h2 class="text-gray-500" id="stat-interview">Interview</h2>
-        <p class="text-3xl font-bold text-green-600">0</p>
+        <h2 class="text-gray-500">Interview</h2>
+        <p class="text-3xl font-bold text-green-600" id="stat-interview">0</p>
       </div>
       <div class="bg-white p-6 rounded-xl shadow">
-        <h2 class="text-gray-500" id="stat-rejected">Rejected</h2>
-        <p class="text-3xl font-bold text-red-600">0</p>
+        <h2 class="text-gray-500">Rejected</h2>
+        <p class="text-3xl font-bold text-red-600" id="stat-rejected">0</p>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
       <button id="tab-all" onclick="switchTab('all')" class=" bg-gray-200 px-4 py-2 rounded">All</button>
       <button id="tab-interview" onclick="switchTab('interview')"
         class="bg-gray-200 px-4 py-2 rounded">Interview</button>
-      <button id="tab-rejected" onclick="switchTab('rejected')" class="bg-gray-200 px-4 py-2 rounded">Rejected</button>
+      <button id="tab-reject" onclick="switchTab('reject')" class="bg-gray-200 px-4 py-2 rounded">Rejected</button>
     </div>
 
     <!-- Job Cards -->
@@ -56,7 +56,7 @@
         <div class="job-card bg-white p-6 rounded-xl shadow relative border mb-5">
 
           <!-- Delete Icon -->
-          <button class="delete-btn absolute top-4 right-4 text-gray-400 hover:text-red-500">
+          <button class="delete absolute top-4 right-4 text-gray-400 hover:text-red-500">
             <i class="fa-solid fa-trash"></i>
           </button>
 
@@ -77,8 +77,7 @@
 
           <!-- STATUS BADGE -->
           <!-- Default state -->
-          <span
-            class="status-badge inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-700">
+          <span class="status inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-700">
             NOT APPLIED
           </span>
 
@@ -92,12 +91,11 @@
           <div class="flex gap-3 mt-5">
 
             <button
-              class="interview-btn border border-green-500 text-green-600 px-4 py-1.5 rounded-md text-sm hover:bg-green-50">
+              class="interview border border-green-500 text-green-600 px-4 py-1.5 rounded-md text-sm hover:bg-green-50">
               INTERVIEW
             </button>
 
-            <button
-              class="rejected-btn border border-red-500 text-red-600 px-4 py-1.5 rounded-md text-sm hover:bg-red-50">
+            <button class="rejected border border-red-500 text-red-600 px-4 py-1.5 rounded-md text-sm hover:bg-red-50">
               REJECTED
             </button>
 
@@ -108,7 +106,7 @@
         <div class="job-card bg-white p-6 rounded-xl shadow relative border mb-5">
 
           <!-- Delete Icon -->
-          <button class="delete-btn absolute top-4 right-4 text-gray-400 hover:text-red-500">
+          <button class="delete absolute top-4 right-4 text-gray-400 hover:text-red-500">
             <i class="fa-solid fa-trash"></i>
           </button>
 
@@ -129,8 +127,7 @@
 
           <!-- STATUS BADGE -->
           <!-- Default state -->
-          <span
-            class="status-badge inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-700">
+          <span class="status inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-700">
             NOT APPLIED
           </span>
 
@@ -144,18 +141,19 @@
           <div class="flex gap-3 mt-5">
 
             <button
-              class="interview-btn border border-green-500 text-green-600 px-4 py-1.5 rounded-md text-sm hover:bg-green-50">
+              class="interview border border-green-500 text-green-600 px-4 py-1.5 rounded-md text-sm hover:bg-green-50">
               INTERVIEW
             </button>
 
-            <button
-              class="rejected-btn border border-red-500 text-red-600 px-4 py-1.5 rounded-md text-sm hover:bg-red-50">
+            <button class="rejected border border-red-500 text-red-600 px-4 py-1.5 rounded-md text-sm hover:bg-red-50">
               REJECTED
             </button>
 
           </div>
 
         </div>
+
+
       </section>
 
 

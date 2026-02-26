@@ -9,7 +9,7 @@ const rejectContainer = document.getElementById("reject-container");
   
 function switchTab(tab) {
   console.log(tab);
-  const tabs = ["all", "interview", "rejected"];
+  const tabs = ["all", "interview", "reject"];
   
   for (const t of tabs) {
     const tabName = document.getElementById("tab-" + t);
@@ -45,3 +45,18 @@ const rejectedStat = document.getElementById("stat-rejected");
 
 switchTab(currentTab);
 
+document.getElementById("tab-all").addEventListener("click", function (event) {
+
+  const clickedElement = event.target;
+  const card = clickedElement.closest(".job-card");
+
+  if (clickedElement.classList.contains("interview")) {
+    interviewContainer.appendChild(card);
+  }
+  if (clickedElement.classList.contains("rejected")) {
+    rejectContainer.appendChild(card);
+  }
+  if (clickedElement.classList.contains("delete")) {
+    card.remove();
+  }
+};
