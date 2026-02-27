@@ -1,62 +1,171 @@
-let currentTab = "all";
-const tabActive = ["bg-blue-600", "border-blue-600", "text-white"];
-const tabInactive = ["bg-transparent", "text-slate-700", "border-slate-200"];
+document.addEventListener("DOMContentLoaded", function () {
+  switchTab("all");
+  updateStats();
+});
 
-const allContainer = document.getElementById("all-container");
-const interviewContainer = document.getElementById("interview-container");
-const rejectContainer = document.getElementById("reject-container");
-
-  
+// ================= TAB SWITCH =================
 function switchTab(tab) {
-  console.log(tab);
-  const tabs = ["all", "interview", "reject"];
-  
-  for (const t of tabs) {
-    const tabName = document.getElementById("tab-" + t);
-    if (t === tab) {
-      tabName.classList.remove(...tabInactive);
-      tabName.classList.add(...tabActive);
-    }
-    else {
-      tabName.classList.remove(...tabActive);
-      tabName.classList.add(...tabInactive);
-    }
-  }
-  const pages = [allContainer, interviewContainer, rejectContainer];
-  for (const section of pages) {
-    section.classList.add("hidden");
-  }
-  if (tab === "all") {
-    allContainer.classList.remove("hidden");
-  }
-  else if (tab === "interview") {
-    interviewContainer.classList.remove("hidden");
-  
-  }
-  else {
-    rejectContainer.classList.remove("hidden");
 
-  }
+  const sections = ["all", "interview", "reject"];
+
+  sections.forEach(sec => {
+    document.getElementById(sec + "-container").classList.add("hidden");
+  });
+
+  document.getElementById(tab + "-container").classList.remove("hidden");
+
+  // Tab Design
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.remove("bg-blue-600", "text-white");
+    btn.classList.add("bg-transparent", "text-black");
+  });
+
+  const activeBtn = document.getElementById("tab-" + tab);
+  activeBtn.classList.remove("bg-transparent", "text-black");
+  activeBtn.classList.add("bg-blue-600", "text-white");
 }
 
-const totalStat = document.getElementById("stat-total");
-const interviewStat = document.getElementById("stat-interview");
-const rejectedStat = document.getElementById("stat-rejected");
 
-switchTab(currentTab);
 
-document.getElementById("tab-all").addEventListener("click", function (event) {
+// ================= GLOBAL CLICK EVENT =================
+document.addEventListener("click", function (e) {
 
-  const clickedElement = event.target;
-  const card = clickedElement.closest(".job-card");
+  const card = e.target.closest(".job-card");
+  if (!card) return;
 
-  if (clickedElement.classList.contains("interview")) {
-    interviewContainer.appendChild(card);
+  const badge = card.querySelector(".status");
+  const isAllTabCard = card.closest("#all-container");
+
+  // ===== INTERVIEW =====
+  if (e.target.classList.contains("interview")) {
+
+    updateBadge(badge, "INTERVIEW", "green");
+
+    if (isAllTabCard) {
+      moveClone(card, "interview-container", "reject-container");
+    } else {
+      moveBetweenTabs(card, "interview-container", "reject-container");
+    }
+
+    updateStats();
   }
-  if (clickedElement.classList.contains("rejected")) {
-    rejectContainer.appendChild(card);
+
+  // ===== REJECT =====
+  if (e.target.classList.contains("rejected")) {
+
+    updateBadge(badge, "REJECTED", "red");
+
+    if (isAllTabCard) {
+      moveClone(card, "reject-container", "interview-container");
+    } else {
+      moveBetweenTabs(card, "reject-container", "interview-container");
+    }
+
+    updateStats();
   }
-  if (clickedElement.classList.contains("delete")) {
-    card.remove();
+
+  // ===== DELETE =====
+  if (e.target.closest(".delete")) {
+
+    const parentSection = card.parentElement.id;
+
+    if (parentSection === "all-container") {
+      // delete everywhere
+      deleteEverywhere(card);
+    } else {
+      card.remove();
+    }
+
+    updateStats();
   }
-};
+
+});
+
+
+
+// ================= BADGE FUNCTION =================
+function updateBadge(badge, text, color) {
+
+  if (color === "green") {
+    badge.className = "status inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-green-100 text-green-700";
+  } else {
+    badge.className = "status inline-block mt-3 px-3 py-1 text-xs font-semibold rounded bg-red-100 text-red-700";
+  }
+
+  badge.textContent = text;
+}
+
+
+
+// ================= ADD FROM ALL TAB =================
+function moveClone(originalCard, targetId, removeFromId) {
+
+  const target = document.getElementById(targetId);
+  const removeFrom = document.getElementById(removeFromId);
+
+  // remove from opposite tab
+  removeDuplicate(originalCard, removeFrom);
+
+  // prevent duplicate
+  if (existsIn(originalCard, target)) return;
+
+  const clone = originalCard.cloneNode(true);
+  target.appendChild(clone);
+}
+
+
+
+
+
+
+// ================= DELETE FROM ALL =================
+function deleteEverywhere(originalCard) {
+
+  const title = originalCard.querySelector("h3").textContent;
+
+  ["all-container", "interview-container", "reject-container"].forEach(id => {
+
+    document.querySelectorAll("#" + id + " .job-card").forEach(card => {
+      if (card.querySelector("h3").textContent === title) {
+        card.remove();
+      }
+    });
+
+  });
+}
+
+
+
+// ================= HELPERS =================
+function existsIn(card, container) {
+
+  const title = card.querySelector("h3").textContent;
+
+  return Array.from(container.querySelectorAll(".job-card"))
+    .some(c => c.querySelector("h3").textContent === title);
+}
+
+function removeDuplicate(card, container) {
+
+  const title = card.querySelector("h3").textContent;
+
+  container.querySelectorAll(".job-card").forEach(c => {
+    if (c.querySelector("h3").textContent === title) {
+      c.remove();
+    }
+  });
+}
+
+
+
+// ================= STATS =================
+function updateStats() {
+
+  const total = document.querySelectorAll("#all-container .job-card").length;
+  const interview = document.querySelectorAll("#interview-container .job-card").length;
+  const rejected = document.querySelectorAll("#reject-container .job-card").length;
+
+  document.getElementById("stat-total").textContent = total;
+  document.getElementById("stat-interview").textContent = interview;
+  document.getElementById("stat-rejected").textContent = rejected;
+}
