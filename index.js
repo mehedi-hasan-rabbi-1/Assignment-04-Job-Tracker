@@ -174,13 +174,40 @@ function removeDuplicate(card, container) {
 
 
 // ================= STATS =================
+// function updateStats() {
+
+//   const total = document.querySelectorAll("#all-container .job-card").length;
+//   const interview = document.querySelectorAll("#interview-container .job-card").length;
+//   const rejected = document.querySelectorAll("#reject-container .job-card").length;
+
+//   document.getElementById("stat-total").textContent = total;
+//   document.getElementById("stat-interview").textContent = interview;
+//   document.getElementById("stat-rejected").textContent = rejected;
+
+// }
+
+// ================= STATS & EMPTY STATE TOGGLE =================
 function updateStats() {
+    const totalCount = document.querySelectorAll("#all-container .job-card").length;
+    const interviewCount = document.querySelectorAll("#interview-container .job-card").length;
+    const rejectedCount = document.querySelectorAll("#reject-container .job-card").length;
 
-  const total = document.querySelectorAll("#all-container .job-card").length;
-  const interview = document.querySelectorAll("#interview-container .job-card").length;
-  const rejected = document.querySelectorAll("#reject-container .job-card").length;
+  
+    document.getElementById("stat-total").textContent = totalCount;
+    document.getElementById("stat-interview").textContent = interviewCount;
+    document.getElementById("stat-rejected").textContent = rejectedCount;
 
-  document.getElementById("stat-total").textContent = total;
-  document.getElementById("stat-interview").textContent = interview;
-  document.getElementById("stat-rejected").textContent = rejected;
+    
+    const interviewMsg = document.querySelector("#interview-container div.text-center");
+    if (interviewMsg) {
+        interviewMsg.style.display = interviewCount > 0 ? "none" : "block";
+    }
+
+    
+    const rejectMsg = document.querySelector("#reject-container div.text-center");
+    if (rejectMsg) {
+        rejectMsg.style.display = rejectedCount > 0 ? "none" : "block";
+    }
 }
+
+
