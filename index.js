@@ -115,6 +115,21 @@ function moveClone(originalCard, targetId, removeFromId) {
 
 
 
+// ================= TOGGLE BETWEEN INTERVIEW & REJECT =================
+function moveBetweenTabs(card, targetId, removeFromId) {
+
+  const target = document.getElementById(targetId);
+  const removeFrom = document.getElementById(removeFromId);
+
+  removeDuplicate(card, removeFrom);
+
+  if (!existsIn(card, target)) {
+    const clone = card.cloneNode(true);
+    target.appendChild(clone);
+  }
+
+  card.remove();
+}
 
 
 
